@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ari's Sito</title>
+    <style>
+        body {
+            text-align: center;
+            position: relative;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            margin: 0 auto;
+            max-width: 90%; /* Utilizza una percentuale per rendere il layout più flessibile */
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 20px auto;
+        }
+
+        .posizionata {
+            position: absolute;
+            width: 0vw; /* Diminuisce la larghezza relativa alla larghezza del viewport */
+            height: auto;
+            cursor: pointer;
+        }
+
+        /* Posizioni per ciascun "ping" */
+        .ping1 {
+            top: 19.5%;
+            left: 73%;
+        }
+        .ping2 {
+            top: 15%;
+            left: 47%;
+        }
+        .ping3 {
+            top: 23%;
+            left: 33%;
+        }
+        .ping4 {
+            top: 26.67%;
+            left: 50.75%;
+        }
+        .ping5 {
+            top: 28.5%;
+            left: 8.27%;
+        }
+
+        /* Stile per il contatore */
+        .counter {
+            font-size: 5vw; /* Dimensione del testo flessibile */
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        /* Stile per il pulsante "Sorpresa" */
+        #sorpresa {
+            display: none;
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 4vw; /* Dimensione del testo flessibile */
+            background-color: #FFD700;
+            color: black;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        #sorpresa:hover {
+            background-color: #ff0000;
+        }
+
+        /* Nasconde la nuova immagine ping inizialmente */
+        #nuovaPing {
+            display: none;
+            width: 6vw; /* Stessa larghezza degli altri ping */
+            height: auto;
+            position: absolute;
+            top: 28.8%;
+            left: 44.5%;
+            transform: translate(-50%, -50%); /* Centra l'immagine */
+        }
+
+        /* Media Queries per schermi piccoli */
+        @media (max-width: 600px) {
+            .posizionata {
+                width: 10vw; /* Aumenta la dimensione delle immagini sui dispositivi mobili */
+            }
+            
+            .counter {
+                font-size: 6vw; /* Aumenta la dimensione del contatore sui dispositivi mobili */
+            }
+
+            #sorpresa {
+                font-size: 5vw; /* Aumenta la dimensione del pulsante sui dispositivi mobili */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1><b>Caccia Ari</b></h1>
+        <p>Segui i ping e trova il tesoro</p>
+        
+        <!-- Contatore che mostra x/5 -->
+        <div id="counter" class="counter">0/5</div>
+
+        <img src="Mappa_Ocosce.jpg" alt="Mappa del tesoro">
+
+        <!-- Prima immagine di "ping" -->
+        <img src="ping.png" alt="Ping 1" class="posizionata ping1" onclick="incrementaVariabile(this)">
+        
+        <!-- Seconda immagine di "ping" -->
+        <img src="ping.png" alt="Ping 2" class="posizionata ping2" onclick="incrementaVariabile(this)">
+        
+        <!-- Terza immagine di "ping" -->
+        <img src="ping.png" alt="Ping 3" class="posizionata ping3" onclick="incrementaVariabile(this)">
+        
+        <!-- Quarta immagine di "ping" -->
+        <img src="ping.png" alt="Ping 4" class="posizionata ping4" onclick="incrementaVariabile(this)">
+        
+        <!-- Quinta immagine di "ping" -->
+        <img src="ping.png" alt="Ping 5" class="posizionata ping5" onclick="incrementaVariabile(this)">
+
+        <!-- Pulsante "Sorpresa" nascosto -->
+        <button id="sorpresa" onclick="mostraSorpresa()">Sorpresa</button>
+
+        <!-- Nuova immagine "Ping" che appare solo dopo aver cliccato "Sorpresa" -->
+        <img src="ping.png" alt="Nuova Ping" id="nuovaPing">
+    </div>
+
+    <script>
+        // Inizializza la variabile a 0
+        let contatore = 0;
+
+        // Funzione per incrementare la variabile e disabilitare l'immagine
+        function incrementaVariabile(elemento) {
+            contatore += 1;
+            console.log("Variabile incrementata: " + contatore);
+            
+            // Disabilita l'immagine cliccata
+            elemento.style.pointerEvents = 'none';
+            elemento.style.opacity = '0.5';
+            
+            // Aggiorna il contatore visibile
+            document.getElementById("counter").textContent = contatore + "/5";
+            
+            // Controlla se contatore ha raggiunto 5
+            if (contatore === 5) {
+                document.getElementById("sorpresa").style.display = 'inline-block';
+            }
+        }
+
+        // Funzione per mostrare la sorpresa
+        function mostraSorpresa() {
+            let pings = document.querySelectorAll('.posizionata');
+            pings.forEach(function(ping) {
+                ping.style.display = 'none';
+            });
+            document.getElementById("nuovaPing").style.display = 'block';
+        }
+    </script>
+</body>
+</html>
